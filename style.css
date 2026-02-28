@@ -249,3 +249,28 @@ select {
   background: #0f172a;
   color: white;
 }
+
+
+.about {
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.about p {
+  margin: 10px 0;
+  color: #cbd5f5;
+}
+
+.about b {
+  color: #38bdf8;
+}
+
+.tags span {
+  background: rgba(59,130,246,0.2);
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin: 5px;
+  display: inline-block;
+  font-size: 12px;
+}
+

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Flood Monitoring</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;500;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Heatmap -->
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+</head>
+
+<body>
+
+<header>
+  <h1>🌊 Smart Drainage & Flood Monitoring</h1>
+</header>
+
+<div class="container">
+
+  <!-- 🔥 MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- MAP SECTION -->
+    <div class="map-section">
+
+      <div id="map"></div>
+
+      <!-- STATS BELOW MAP -->
+      <div class="map-stats glass">
+        <p>🟢 Clean: <span id="cleanCount"></span></p>
+        <p>🔴 Clogged: <span id="clogCount"></span></p>
+      </div>
+
+    </div>
+
+    <!-- ZONES SIDEBAR -->
+    <div class="sidebar glass">
+
+      <h2>Zones</h2>
+
+      <select id="zoneSelect" onchange="showZoneLocations()">
+        <option value="all">All Zones</option>
+        <option value="Zone 1">Zone 1</option>
+        <option value="Zone 2">Zone 2</option>
+        <option value="Zone 3">Zone 3</option>
+      </select>
+
+      <div id="locationList"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- WEATHER -->
+<section class="glass fade-in">
+  <h2>🌦️ Live Weather</h2>
+  <div class="weather-grid">
+    <div>🌡️ <span id="temp"></span></div>
+    <div>🌥️ <span id="condition"></span></div>
+    <div>💨 <span id="wind"></span></div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="glass fade-in">
+  <h2>📊 System Overview</h2>
+  <div class="dashboard">
+    <div class="dash-card"><h3 id="totalSensors"></h3><p>Sensors</p></div>
+    <div class="dash-card"><h3 id="cloggedSensors"></h3><p>Clogged</p></div>
+    <div class="dash-card"><h3 id="riskLevel"></h3><p>Risk</p></div>
+  </div>
+</section>
+
+<!-- PREDICTION -->
+<section class="fade-in">
+  <h2>🌧️ Flood Risk</h2>
+  <div class="cards">
+    <div class="card" id="zone1Card"></div>
+    <div class="card" id="zone2Card"></div>
+    <div class="card" id="zone3Card"></div>
+  </div>
+</section>
+
+<!-- REPORT -->
+<section class="glass fade-in">
+  <h2>📢 Report Issue</h2>
+
+  <form class="report-form" onsubmit="submitReport(event)">
+
+    <div class="row">
+      <input type="text" id="reportLocation" placeholder="Use GPS 📍" readonly>
+      <button type="button" onclick="getUserLocation()">📍</button>
+    </div>
+
+    <textarea id="reportDesc" placeholder="Describe issue..." required></textarea>
+
+    <label class="upload-btn">
+      📷 Upload Image
+      <input type="file" id="reportImage" accept="image/*">
+    </label>
+
+    <span id="fileName">No file selected</span>
+
+    <div class="preview-container">
+      <img id="preview">
+      <button type="button" class="delete-btn" onclick="removeImage()">×</button>
+    </div>
+
+    <button class="submit-btn">Submit</button>
+
+  </form>
+
+  <div id="reportOutput"></div>
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>

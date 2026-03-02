@@ -4,7 +4,7 @@ let markers = [];
 let currentLocationLink = "";
 let tempMarker = null;
 
-/* 🔥 CUSTOM MARKER */
+/*  marker */
 function getMarkerIcon(status, zone){
 
   let color = "#22c55e";
@@ -130,7 +130,7 @@ function initMap(){
   addDrainageLines();
 }
 
-/* 🔥 UPDATED MAP FILTER + STATS */
+/* map filter & Status */
 function updateMapMarkers(){
 
   let zone = zoneSelect.value;
@@ -155,7 +155,7 @@ function updateMapMarkers(){
   document.getElementById("clogCount").innerText = clogged;
 }
 
-/* ZONE LIST */
+/* zone list */
 function showZoneLocations(){
 
   let zone = zoneSelect.value;
@@ -167,7 +167,7 @@ function showZoneLocations(){
 
     if(zone==="all" || loc.zone===zone){
 
-      // collect points for zoom
+      // zoom point
       zonePoints.push([loc.lat, loc.lng]);
 
       let div=document.createElement("div");
@@ -185,14 +185,14 @@ function showZoneLocations(){
 
   updateMapMarkers();
 
-  // 🔥 THIS IS THE MAIN FIX (ZONE ZOOM)
+  // its for all zoom 
   if(zone !== "all" && zonePoints.length > 0){
     let bounds = L.latLngBounds(zonePoints);
     map.fitBounds(bounds);
   }
 }
 
-/* 🔥 VIEW FIX */
+/* view fix */
 function zoomTo(lat,lng){
 
   map.setView([lat,lng],17);
@@ -208,7 +208,7 @@ function getDirection(lat,lng){
   window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`);
 }
 
-/* WEATHER */
+/* for weather */
 function loadWeather(){
   fetch(`https://api.open-meteo.com/v1/forecast?latitude=9.9252&longitude=78.1198&current_weather=true`)
   .then(res=>res.json())
@@ -226,7 +226,7 @@ function loadWeather(){
   });
 }
 
-/* DASHBOARD */
+/* for dashboard */
 function updateDashboard(){
   let total=locationsData.length;
   let clogged=locationsData.filter(l=>l.status==="clogged").length;
@@ -237,19 +237,19 @@ function updateDashboard(){
   riskLevel.innerText=risk;
 }
 
-/* HEATMAP */
+/* heatmap */
 function addHeatMap(){
   let heatData=locationsData.map(l=>[l.lat,l.lng,l.status==="clogged"?1:0.3]);
   L.heatLayer(heatData,{radius:25}).addTo(map);
 }
 
-/* DRAINAGE */
+/* drsinage */
 function addDrainageLines(){
   let line=[[9.94,78.1],[9.92,78.12],[9.91,78.13]];
   L.polyline(line,{color:"#38bdf8",weight:5}).addTo(map);
 }
 
-/* GPS */
+/* gps */
 function getUserLocation(){
 
   navigator.geolocation.getCurrentPosition(async pos=>{
@@ -281,7 +281,7 @@ function getUserLocation(){
   });
 }
 
-/* IMAGE */
+/* images */
 function removeImage(){
   reportImage.value="";
   preview.style.display="none";
@@ -301,7 +301,7 @@ reportImage.addEventListener("change", function(){
   }
 });
 
-/* REPORT */
+/* for report */
 function submitReport(e){
   e.preventDefault();
 
@@ -338,7 +338,7 @@ function submitReport(e){
   preview.style.display="none";
 }
 
-/* PREDICTION */
+/* for predection */
 function updatePrediction(){
   ["Zone 1","Zone 2","Zone 3"].forEach(z=>{
     let r=Math.random();
@@ -355,7 +355,7 @@ function updatePrediction(){
   });
 }
 
-/* SCROLL */
+/* scroll animation */
 function handleScrollAnimation(){
   document.querySelectorAll(".fade-in").forEach(el=>{
     if(el.getBoundingClientRect().top < window.innerHeight - 80){
@@ -366,5 +366,6 @@ function handleScrollAnimation(){
 
 window.addEventListener("scroll", handleScrollAnimation);
 window.addEventListener("load", handleScrollAnimation);
+
 
 window.onload=initMap;
